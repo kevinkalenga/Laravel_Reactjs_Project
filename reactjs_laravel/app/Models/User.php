@@ -21,6 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'address',
+        'city',
+        'zip_code',
+        'country',
+        'phone_number',
+        'profile_image',
+        'profile_completed'
     ];
 
     /**
@@ -44,5 +51,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function orders()
+    {
+          // fourth relation review(each product wil have one or many reviews)
+        return $this->hasMany(Order::class)->with('products')->latest();
+    }
+
+    public function image_path()
+    {
+        if($this->profile_image) {
+            return asset('storage/images/users/'.$this->profile_image);
+        } else {
+            return 'https://cdn-icons-png.flaticon.com/128/3177/3177440.png';
+        }
     }
 }

@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Factories;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class AdminFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            //
+         return [
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'remember_token' => Str::random(10),
         ];
     }
 }
